@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage{booktabs} 
+
+\title{Review questions linear regression}
+\date{14-09-2016}
+\author{Wendy Nieuwkamer}
+
+\begin{document}
+
+\section{Question 6}
+Apply gradient descent by hand on a given training set.
+\subsection{information}
+
+Cost function:
+\begin{equation}
+J(\theta _0 , \theta _1 ) = \frac{1}{2m} \sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})^{2}
+\end{equation}
+
+Hypothesis:
+\begin{equation}
+h_{\theta}(x^{(i)}) = \theta _0 + \theta _1 x^{(i)}
+\end{equation}
+
+\begin{table}[h!]
+  \centering
+  \caption{Training examples}
+  \label{tab:table1}
+  \begin{tabular}{cc}
+    \toprule
+    x & y \\
+    \midrule
+    3&2\\
+    1&2\\
+    0&1\\
+    4&3\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\end{document}
