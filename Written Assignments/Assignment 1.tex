@@ -1,0 +1,109 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{booktabs} 
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\title {Assignment 1}
+\date{16-9-2016}
+\author{Wendy Nieuwkamer}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+Suppose that we have historical data of result of soccer matches of teams playing against Ajax. We wantto
+use this information to learn to predict at a certain moment whether a team will win, lose or draw against
+Ajax. Our approach will be based on Machine Learning.
+
+\subsection{Define the given and the goal of the prediction task.
+Classify the learning task.}
+
+Given are the results of soccer matches, the goal is to decide whether a team will win, lose or draw when playing. 
+The learning task is supervised, as we are given inputs with their wanted result. It is a classification problem as 
+every input should be classified as one of three possibilities.
+
+
+\subsection{What would be the form of training data for the learning task? Give a small training set.}
+An example of a training set could be the following table:
+
+\begin{table}
+\centering
+\begin{tabular}{c|c}
+   team & results \\
+   \hline
+   1 & win\\
+   2 & draw\\
+   3 & lose\\
+   1 & lose\\ 
+   3 & draw\\
+   4 & win\\
+\end{tabular}
+\caption{training examples}
+\end{table}
+
+\section{Question 2}
+Given the following data: 
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c|c}
+   x & y \\
+   \hline
+   3 & 6\\
+   5 & 7\\
+   6 & 10
+\end{tabular}
+\end{table}	
+
+\subsection{Manually  calculate two iterations of the gradient descent algorithm
+for univariate linear regression function. }
+
+\textit{Initialize the parameters such that the regression function
+passes through the origin (0, 0) and has an angle of 45 degrees. Use a learning rate of 0.1. Give the
+intermediate results of your calculations and also compute the mean-squared error of the function
+after 2 iterations.}\\
+
+\textbf{Gradient descent Algorithm}\\
+
+Repeat until convergence \{
+\begin{align*}
+\theta _0 &:= \theta _0 - \alpha \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})\\
+\theta _1 &:= \theta _1 - \alpha \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})x^{(i)} \\
+\end{align*}
+\}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
