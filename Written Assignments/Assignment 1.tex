@@ -76,9 +76,9 @@ Use the training data in the table to answer all the subquestions.
 	\}\\
 	
 	The hypothesis $h_\theta$ is:
-	\begin{equation}
+	\begin{equation*}
 	h_\theta (x^{(i)}) = \theta_0 = \theta_1 x^{(i)}
-	\end{equation}\\
+	\end{equation*}\\
 	
 	For this exercise the learning rate $\alpha=0.1$ and the amount of learning examples $m=3$ are given. The line that passes through the origin and has an angle of 45 degrees relative to 		the x-axis is $f(x) = x$, thus our starting values are $\theta_0 = 0$ and $\theta_1 = 1$.
 	
@@ -160,13 +160,44 @@ Use the training data in the table to answer all the subquestions.
 
 \section{Question 3}
 
+\section{Question 4}
+\textit{Derive an equation that can be used to find the optimal value of the parameter $\theta_1$ for
+univariate linear regression without doing gradient descent. This can be done by setting the value of the
+derivative equal to 0. You may assume that the value of $\theta_0$ is fixed.}
 
+To find a formula for $\theta_1$ we take zero as the value of the derivative relative to $\theta_1$ of the cost function: 
 
+\begin{equation*}
+\frac{\delta}{\delta\theta_1}J(\theta_0, \theta_1) = 0
+\end{equation*}
 
+We have seen this derivative before as a part of the gradient descent algorithm, so the next step is easy. 
 
+\begin{equation*}
+ \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})x^{(i)} = 0
+\end{equation*}
 
+Now, in order to simplify the equation, we first multiply both sides by $m$ (1), write out the hypothesis $h_\theta$ (2) and write out the multiplication with $x^{(i)}$ (3).
 
+\begin{align}
+&\sum\limits_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})x^{(i)} &= 0\\
+&\sum\limits_{i=1}^m(\theta_0+\theta_1x^{(i)} - y^{(i)})x^{(i)} &= 0\\
+&\sum\limits_{i=1}^m(\theta_0x^{(i)} + \theta_1(x^{(i)})^2 - y^{(i)}x^{(i)}) &= 0
+\end{align}
 
+Now, we can breakup the summation (4), factor out $\theta_1$ (5) and the summation without $\theta_1$ to the right side of the equation (6).
+
+\begin{align}
+\sum\limits_{i=1}^m(\theta_1(x^{(i)})^2 ) + \sum\limits_{i=1}^m(\theta_0x^{(i)} - y^{(i)}x^{(i)}) &= 0\\
+\theta_1\sum\limits_{i=1}^m((x^{(i)})^2 ) + \sum\limits_{i=1}^m(\theta_0x^{(i)} - y^{(i)}x^{(i)}) &= 0\\
+\theta_1\sum\limits_{i=1}^m((x^{(i)})^2 )   &= - \sum\limits_{i=1}^m(\theta_0x^{(i)} - y^{(i)}x^{(i)})
+\end{align}
+
+Finally, divide both sides by the left sum to get an equation for $\theta_1$.
+
+\begin{equation*}
+\theta_1 = -\frac{\sum\limits_{i=1}^m(\theta_0x^{(i)} - y^{(i)}x^{(i)})}{\sum\limits_{i=1}^m((x^{(i)})^2 )}
+\end{equation*}
 
 
 
