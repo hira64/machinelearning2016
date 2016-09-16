@@ -45,7 +45,7 @@ An example of a training set could be the following table:
 \end{table}
 
 \section{Question 2}
-Given the following data: 
+Use the training data in the table to answer all the subquestions. 
 
 \begin{table}[h!]
 \centering
@@ -58,33 +58,107 @@ Given the following data:
 \end{tabular}
 \end{table}	
 
-\subsection{Manually  calculate two iterations of the gradient descent algorithm
-for univariate linear regression function. }
+	\subsection{Manually  calculate two iterations of the gradient descent algorithm
+	for univariate linear regression function. }
+	
+	\textit{Initialize the parameters such that the regression function
+	passes through the origin (0, 0) and has an angle of 45 degrees. Use a learning rate of 0.1. Give the
+	intermediate results of your calculations and also compute the mean-squared error of the function
+	after 2 iterations.}\\
+	
+	\textbf{Gradient Descent Algorithm}\\
+	
+	Repeat until convergence \{
+	\begin{align*}
+	\theta _0 &:= \theta _0 - \alpha \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})\\
+	\theta _1 &:= \theta _1 - \alpha \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})x^{(i)} \\
+	\end{align*}
+	\}\\
+	
+	The hypothesis $h_\theta$ is:
+	\begin{equation}
+	h_\theta (x^{(i)}) = \theta_0 = \theta_1 x^{(i)}
+	\end{equation}\\
+	
+	For this exercise the learning rate $\alpha=0.1$ and the amount of learning examples $m=3$ are given. The line that passes through the origin and has an angle of 45 degrees relative to 		the x-axis is $f(x) = x$, thus our starting values are $\theta_0 = 0$ and $\theta_1 = 1$.
+	
+	\paragraph{First Iteration}
+	First, calculate the new values for $\theta_0$ and $\theta_1$.
+	
+		\begin{align*}
+		\theta_0 &= 0 - 0.1 \cdot \frac{1}{3}\sum\limits_{i=1}^3 (x ^{(i)} - y ^{(i)})\\
+		&= -\frac{1}{30} (-3 + -2 + -4)\\
+		&= 0.3 \\
+		\\
+		\theta_1&=1-0.1 \cdot \frac{1}{3}\sum\limits_{i=1}^3 (x ^{(i)} - y ^{(i)})x^{(i)}\\
+		&=1-\frac{1}{30}(-9+-10+-24)\\
+		&=1+\frac{43}{30}=\frac{73}{30}=2.34
+		\end{align*}
+		
+		Then, update $\theta_0$ and $\theta_1$.
+		
+		\begin{align*}
+		\theta_0 &:= 0.3 \\
+		\theta_1&:=2.34
+		\end{align*}
+	
+	\paragraph{Second Iteration}
+	The values for $m$ and $\alpha$ are still the same, but now we use the new values for $\theta_0$ and $\theta_1$. Again, first the calculations.
+	
+		\begin{align*}
+		\theta_0 &= 0.30 - 0.1 \cdot \frac{1}{3}\sum\limits_{i=1}^3 (0.30+2.34x ^{(i)} - y ^{(i)})\\
+		&= 0.30-\frac{1}{30} (1.6+5.47+4.9)\\
+		&= 0.30 - 0.40 = -0.10\\
+		\\
+		\theta_1&=2.34-0.1 \cdot \frac{1}{3}\sum\limits_{i=1}^3 (0.30+2.34x ^{(i)} - y ^{(i)})x^{(i)}\\
+		&=2.34-\frac{1}{30}(8.15+27.33+29.40)\\
+		&=2.34-2.16=0.18
+		\end{align*}
+		
+		\pagebreak
+		Then, update $\theta_0$ and $\theta_1$.
+		
+		\begin{align*}
+		\theta_0 &:= -0.10\\
+		\theta_1&:=0.18
+		\end{align*}
+	
+	\paragraph{Mean-Squared Error}
+	Now we can calculate the mean-squared error to see how good our hypothesis $h_\theta(x^{(i)}) = -0.10 + 0.18x^{(i)}$ is. The formula we use is:
+	
+		\begin{equation*}
+		J(\theta_0, \theta_1) = \frac{1}{2m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})^2
+		\end{equation*}
+		
+		This function is also called the cost function. We can now insert our values $m=3$, $\theta_0=-0.10$ and $\theta_1=0.18$.
+		
+		\begin{align*}
+		J(\theta_0, \theta_1) &= \frac{1}{6} \sum\limits_{i=1}^3 (0.18x ^{(i)} - 0.10 - y ^{(i)})^2\\
+		 &= \frac{1}{6} (30.91+38.44+81.36)\\
+		&=25.12
+		\end{align*}
+		
+		Thus, the mean-squared error for $m=3$, $\theta_0=-0.10$, $\theta_1=0.18$ and the given training examples is 25.12.
+	
+	\subsection{Convert the data to z-scores, repeat the calculations above and compare the results.}
+	To calculate the z-scores use mean $\mu=0$ and standard deviation $\sigma=1$. The formula for calculating a z-score is:
+	
+	\begin{equation*}
+	Z = \frac{X-\mu}{\sigma}
+	\end{equation*}
+	
+	Where $X$ is the input value of the training example. Inserting our $\mu$ and $\sigma$ into this formula gives:
+	
+	\begin{equation*}
+	Z = \frac{X-0}{1} = X
+	\end{equation*}
+	
+	Redoing the calculations would not be very useful as with this $\mu$ and $\sigma$ the Z-score would be the same as the original input. It would be more useful to choose $\mu=4.5$ 
+	and $\sigma=1.125$ for $x$ as this actually changes the values.
 
-\textit{Initialize the parameters such that the regression function
-passes through the origin (0, 0) and has an angle of 45 degrees. Use a learning rate of 0.1. Give the
-intermediate results of your calculations and also compute the mean-squared error of the function
-after 2 iterations.}\\
+	\pagebreak
 
-\textbf{Gradient descent Algorithm}\\
-
-Repeat until convergence \{
-\begin{align*}
-\theta _0 &:= \theta _0 - \alpha \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})\\
-\theta _1 &:= \theta _1 - \alpha \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})x^{(i)} \\
-\end{align*}
-\}
-
-
-
-
-
-
-
-
-
-
-
+\section{Question 3}
 
 
 
