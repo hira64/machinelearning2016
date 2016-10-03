@@ -1,0 +1,109 @@
+\documentclass{article}
+
+\usepackage{booktabs} 
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\title {Assignment 2}
+\date{}
+\author{Wendy Nieuwkamer}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+This question is about \textit{vectorization}, writing in vector form, of the update rule for multivariate linear regression.
+
+\subsection{Write out the update rule}
+\textit{Give the update rule for a a single $\theta$ and data $x_1, x_2, ..., x_n$ using scalars and the dots notation that is used
+in this sentence for the $x$ variables.}\\
+
+	\textbf{Gradient Descent Algorithm for Multivariate Linear Regression}\\
+	
+	Repeat until convergence \{
+	\begin{equation*}
+	\theta _j := \theta _j - \alpha \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})x_j^{(i)} \\
+	\end{equation*}
+	\}\\
+	
+	The hypothesis $h_\theta$ is:
+	\begin{equation*}
+	h_\theta (x^{(i)}) = \theta_0 x_0^{(i)} + \theta_1 x_1^{(i)}+ \theta_2 x_2^{(i)}+ ... + \theta_n x_n^{(i)}
+	\end{equation*}\\
+
+	So, the desired notation is:
+	\begin{equation*}
+	\theta_j  := \theta_j  - \alpha \frac{1}{m} \sum\limits_{i=1}^m ( x_j^{(i)}\theta_0 x_0^{(i)} + x_j^{(i)}\theta_1 x_1^{(i)}+ x_j^{(i)}\theta_2 x_2^{(i)}+ ... 
+			+ x_j^{(i)}\theta_n x_n^{(i)} -x_j^{(i)} y ^{(i)}) \\
+	\end{equation*}
+
+\subsection{Write the hypothesis in vector notation}
+	
+	The hypothesis $h_\theta$ is:
+	\begin{equation*}
+	h_\theta (x^{(i)}) = \theta_0 x_0^{(i)} + \theta_1 x_1^{(i)}+ \theta_2 x_2^{(i)}+ ... + \theta_n x_n^{(i)}
+	\end{equation*}\\
+
+	The hypothesis written in vector notation is:
+	\begin{equation*}
+	h_{\theta}(x^{(i)}) = \theta^T x^{(i)} = 
+	\begin{bmatrix} 
+		\theta_0 & \theta_1 & \theta_2 & \cdots & \theta_n
+	\end{bmatrix}
+	\begin{bmatrix}
+		x_0^{(i)} \\
+		x_1^{(i)} \\ 
+		x_2^{(i)} \\ 
+		\vdots \\
+		 x_n^{(i)}
+	\end{bmatrix}
+	\end{equation*}
+
+\subsection{Write the gradient for $\theta_0$ in vector notation}
+
+	The gradient in standard notation is:
+	\begin{equation*}
+	\frac{\delta}{\delta\theta_0}J(\theta) = \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})
+	\end{equation*}
+
+	The same in vector notation is:
+	\begin{align*}
+	\frac{\delta}{\delta\theta_0}J(\theta) &= \frac{1}{m} \begin{bmatrix} 
+										1 & 1 & 1 & \cdots& 1
+									\end{bmatrix}
+	\cdot (\theta^T x^{(i)} - y ^{(i)})\\
+	&=  \frac{1}{m}x_0^T\cdot (\theta^T x^{(i)} - y ^{(i)})
+	\end{align*}
+
+\subsection{Write the gradient for $\theta_j$ in vector notation for $i>0$}
+	
+	The gradient in standard notation is:
+	\begin{equation*}
+	\frac{\delta}{\delta\theta_i}J(\theta) = \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})x_i^{(i)}
+	\end{equation*}
+
+	The same in vector notation is:
+	\begin{align*}
+	\frac{\delta}{\delta\theta_i}J(\theta) &= \frac{1}{m} \begin{bmatrix} 
+										x_i^{(1)} & x_i^{(2)} & x_i^{(3)} & \cdots& x_i^{(n)}
+									\end{bmatrix}
+	\cdot (\theta^T x^{(i)} - y ^{(i)})\\
+	&=  \frac{1}{m}x_i^T \cdot (\theta^T x^{(i)} - y ^{(i)})
+	\end{align*}
+
+\subsection{Write the entire update rule in vector notation}
+	
+	Combining the previous answers gives:\\
+
+	\textbf{Gradient Descent Algorithm for Multivariate Linear Regression}\\
+	
+	Repeat until convergence \{
+	\begin{equation*}
+	\theta := \theta - \alpha \frac{1}{m} x^T \cdot (\theta\cdot x - y) \\
+	\end{equation*}
+	\}\\	
+
+
+\end{document}
