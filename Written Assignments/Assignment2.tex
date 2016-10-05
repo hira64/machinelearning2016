@@ -14,96 +14,117 @@
 \maketitle
 
 \section{Question 1}
-This question is about \textit{vectorization}, writing in vector form, of the update rule for multivariate linear regression.
+This question is about \textit{vectorization},i.e. writing expressions
+in matrix-vector form. The goal is to vectorize the update rule
+for multivariate linear regression.\\
 
-\subsection{Write out the update rule}
-\textit{Give the update rule for a a single $\theta$ and data $x_1, x_2, ..., x_n$ using scalars and the dots notation that is used
-in this sentence for the $x$ variables.}\\
+Let $\theta$ be the parameter vector $\theta = \begin{pmatrix} \theta_0 & \theta_1 & \cdots & \theta_n \\ \end{pmatrix} ^T$ and let the i-th data vector be: $ x^{(i)} = \begin{pmatrix} x_0 & x_1 & \cdots & x_n \\\end{pmatrix}^T$ where $ x_0 = 1$.
 
-	\textbf{Gradient Descent Algorithm for Multivariate Linear Regression}\\
-	
-	Repeat until convergence \{
-	\begin{equation*}
-	\theta _j := \theta _j - \alpha \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})x_j^{(i)} \\
-	\end{equation*}
-	\}\\
-	
-	The hypothesis $h_\theta$ is:
-	\begin{equation*}
+\subsection{Write the hypothesis function $h_\theta(x)$ as a vectorial expression.}
+
+The summation notation for the hypothesis function is:
+
+\begin{equation*}
 	h_\theta (x^{(i)}) = \theta_0 x_0^{(i)} + \theta_1 x_1^{(i)}+ \theta_2 x_2^{(i)}+ ... + \theta_n x_n^{(i)}
-	\end{equation*}\\
+\end{equation*}\\
 
-	So, the desired notation is:
-	\begin{equation*}
-	\theta_j  := \theta_j  - \alpha \frac{1}{m} \sum\limits_{i=1}^m ( x_j^{(i)}\theta_0 x_0^{(i)} + x_j^{(i)}\theta_1 x_1^{(i)}+ x_j^{(i)}\theta_2 x_2^{(i)}+ ... 
-			+ x_j^{(i)}\theta_n x_n^{(i)} -x_j^{(i)} y ^{(i)}) \\
-	\end{equation*}
+This is the same as the result of the following matrix multiplication:
+\begin{equation}
+	h_\theta (x^{(i)}) = \theta^T x^{(i)},
+\end{equation}
 
-\subsection{Write the hypothesis in vector notation}
-	
-	The hypothesis $h_\theta$ is:
-	\begin{equation*}
-	h_\theta (x^{(i)}) = \theta_0 x_0^{(i)} + \theta_1 x_1^{(i)}+ \theta_2 x_2^{(i)}+ ... + \theta_n x_n^{(i)}
-	\end{equation*}\\
+which is a vectorial expression.
 
-	The hypothesis written in vector notation is:
-	\begin{equation*}
-	h_{\theta}(x^{(i)}) = \theta^T x^{(i)} = 
-	\begin{bmatrix} 
-		\theta_0 & \theta_1 & \theta_2 & \cdots & \theta_n
-	\end{bmatrix}
-	\begin{bmatrix}
-		x_0^{(i)} \\
-		x_1^{(i)} \\ 
-		x_2^{(i)} \\ 
-		\vdots \\
-		 x_n^{(i)}
-	\end{bmatrix}
-	\end{equation*}
+\subsection{What is the vectorized expression for the cost function: $J(\theta)$?}
+The cost function in the notation used up to now:
 
-\subsection{Write the gradient for $\theta_0$ in vector notation}
+\begin{equation*}
+		J(\theta) = \frac{1}{2m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})^2.
+\end{equation*}
+If we simply insert the vectorial notation of the hypothesis function from last question (1) we get:
 
-	The gradient in standard notation is:
-	\begin{equation*}
-	\frac{\delta}{\delta\theta_0}J(\theta) = \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})
-	\end{equation*}
+\begin{equation*}
+		J(\theta) = \frac{1}{2m} \sum\limits_{i=1}^m (\theta^T x^{(i)} - y ^{(i)})^2.
+\end{equation*}
 
-	The same in vector notation is:
-	\begin{align*}
-	\frac{\delta}{\delta\theta_0}J(\theta) &= \frac{1}{m} \begin{bmatrix} 
-										1 & 1 & 1 & \cdots& 1
-									\end{bmatrix}
-	\cdot (\theta^T x^{(i)} - y ^{(i)})\\
-	&=  \frac{1}{m}x_0^T\cdot (\theta^T x^{(i)} - y ^{(i)})
-	\end{align*}
+\subsection{What is the vectorized expression for the gradient of the cost function?}
+\textit{i.e. what is:}
 
-\subsection{Write the gradient for $\theta_j$ in vector notation for $i>0$}
-	
-	The gradient in standard notation is:
-	\begin{equation*}
-	\frac{\delta}{\delta\theta_i}J(\theta) = \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})x_i^{(i)}
-	\end{equation*}
+\begin{equation*}
+\frac{\delta J(\theta)}{\delta \theta} = \begin{pmatrix} \frac{\delta J(\theta)}{\delta \theta_0} \\ \vdots \\ \frac{\delta J(\theta)}{\delta \theta_n} \end{pmatrix}
+\end{equation*}
+\textit{Again the explicit summation over the data vectors from the
+learning set is allowed here.}\\
 
-	The same in vector notation is:
-	\begin{align*}
-	\frac{\delta}{\delta\theta_i}J(\theta) &= \frac{1}{m} \begin{bmatrix} 
-										x_i^{(1)} & x_i^{(2)} & x_i^{(3)} & \cdots& x_i^{(n)}
-									\end{bmatrix}
-	\cdot (\theta^T x^{(i)} - y ^{(i)})\\
-	&=  \frac{1}{m}x_i^T \cdot (\theta^T x^{(i)} - y ^{(i)})
-	\end{align*}
+The notation we used up until now is:
 
-\subsection{Write the entire update rule in vector notation}
-	
-	Combining the previous answers gives:\\
+\begin{equation*}
+\frac{\delta J(\theta)}{\delta \theta_j}= \frac{1}{m} \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})x_j^{(i)}.
+\end{equation*}
 
-	\textbf{Gradient Descent Algorithm for Multivariate Linear Regression}\\
-	
-	Repeat until convergence \{
-	\begin{equation*}
-	\theta := \theta - \alpha \frac{1}{m} x^T \cdot (\theta\cdot x - y) \\
-	\end{equation*}
-	\}\\	
+If we integrate the vectorized notation of the hypothesis (1) again we get:
+
+\begin{equation*}
+\frac{\delta J(\theta)}{\delta \theta_j}= \frac{1}{m} \sum\limits_{i=1}^m ( \theta^T x^{(i)}  - y ^{(i)})x_j^{(i)}.
+\end{equation*}
+
+Substituting this summation for the $\delta$ notation will give us the following vector:
+
+\begin{equation}
+\frac{\delta J(\theta)}{\delta \theta} = \frac{1}{m}\begin{pmatrix}	\sum\limits_{i=1}^m ( \theta^T x^{(i)}  - y ^{(i)})\\ 
+									     		\sum\limits_{i=1}^m ( \theta^T x^{(i)}  - y ^{(i)})x_1^{(i)} \\ 
+										      	 \vdots \\
+										 	\sum\limits_{i=1}^m ( \theta^T x^{(i)}  - y ^{(i)})x_n^{(i)}
+						\end{pmatrix}
+\end{equation}
+
+\subsection{What is the vectorized expression for the $\theta$ update rule in the gradient descent procedure?}
+The original notation for the update rule for one theta was:
+
+\begin{equation*}
+\theta_j = \theta_j - \alpha \frac{1}{m}  \sum\limits_{i=1}^m (h _{\theta} (x ^{(i)}) - y ^{(i)})x_i^{(i)}
+\end{equation*}
+
+By writing it in vector notation we update the entire theta instead of each element separately. Using the formulas from (1) and (2) we get:
+
+\begin{equation*}
+\theta = \theta - \alpha \frac{1}{m}\begin{pmatrix}	\sum\limits_{i=1}^m ( \theta^T x^{(i)}  - y ^{(i)})\\ 
+									     		\sum\limits_{i=1}^m ( \theta^T x^{(i)}  - y ^{(i)})x_1^{(i)} \\ 
+										      	 \vdots \\
+										 	\sum\limits_{i=1}^m ( \theta^T x^{(i)}  - y ^{(i)})x_n^{(i)}
+						\end{pmatrix}
+\end{equation*}
+
+
+
+
+\pagebreak
+
+\section{Question 2}
+\textit{Consider events with two binary outcomes, X and Y. We encode the two values as 0 and 1. We can represent
+the outcomes of an experiment in a 2 by 2 frequency table:}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c|c c}
+~ & X=0 & X=1 \\
+\hline
+Y=0 & a & b \\
+Y=1 & c & d \\
+\end{tabular}
+\end{table}
+
+\textit{Express the following as a function of a/b/c/d:}
+
+\subsection{$P(X=0)$}
+$X=0$ for both the combinations $ X=0, Y=0$, and $X=0, Y=1$. Thus, we are looking at $a$ and $c$. Then, according to the standard formula:
+
+\begin{equation*}
+P(X=0) = \frac{a + c}{a+b+c+d}
+\end{equation*}
+
+\subsection{$P(X=1|Y=0)$}
+
 
 
 \end{document}
