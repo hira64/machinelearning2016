@@ -95,36 +95,116 @@ By writing it in vector notation we update the entire theta instead of each elem
 						\end{pmatrix}
 \end{equation*}
 
+\subsection{(BONUS) Remove the explicit summation by using a matrix vector multiplication}
+We start by defining the data matrix $X$; every row of $X$ is a training example, the first column containing $x_0^{(1)}, x_0^{(2)}, ..., x_0^{(n)}$.\\
 
+\begin{equation*}
+X = \begin{pmatrix} 
+	x_0^{(1)} & x_1^{(1)} & \cdots & x_n^{(1)} \\
+	x_0^{(2)} & x_1^{(2)} & \cdots & x_n^{(2)} \\
+	\vdots & \vdots & & \vdots \\
+	x_0^{(m)} & x_1^{(m)} & \cdots & x_n^{(m)}
+     \end{pmatrix}
+\end{equation*}
 
+The hypothesis function will then be $h_\theta(X) = X \theta$, which results in the matrix:
+
+\begin{equation*}
+h_\theta(X) = X \theta =  \begin{pmatrix} 
+	x_0^{(1)} & x_1^{(1)} & \cdots & x_n^{(1)} \\
+	x_0^{(2)} & x_1^{(2)} & \cdots & x_n^{(2)} \\
+	\vdots & \vdots & & \vdots \\
+	x_0^{(m)} & x_1^{(m)} & \cdots & x_n^{(m)}
+     \end{pmatrix}
+\begin{pmatrix}
+\theta_0 \\
+\theta_1 \\
+\vdots \\
+\theta_n
+\end{pmatrix}
+ = \begin{pmatrix}
+\theta_0 x_0^{(1)} + \theta_1 x_1^{(1)}+  ... + \theta_n x_n^{(1)} \\
+\theta_0 x_0^{(2)} + \theta_1 x_1^{(2)}+  ... + \theta_n x_n^{(2)}\\
+\vdots \\
+\theta_0 x_0^{(m)} + \theta_1 x_1^{(m)}+ ... + \theta_n x_n^{(m)}
+\end{pmatrix}
+\end{equation*}
+
+Let Y be the matrix $Y = \begin{pmatrix} y^{(1)} & y^{(2)} & \cdots & y^{(m)} \end{pmatrix} ^T$. Then we can write the derivative of $J(\theta)$ as follows:
+
+\begin{align*}
+\frac{\delta J(\theta)}{\delta \theta} &= \frac{1}{m} X(X\theta - Y) \\
+&= \frac{1}{m}\begin{pmatrix} 
+	x_0^{(1)} & x_1^{(1)} & \cdots & x_n^{(1)} \\
+	x_0^{(2)} & x_1^{(2)} & \cdots & x_n^{(2)} \\
+	\vdots & \vdots & & \vdots \\
+	x_0^{(m)} & x_1^{(m)} & \cdots & x_n^{(m)}
+     \end{pmatrix}
+\left( 
+ \begin{pmatrix}
+\theta_0 x_0^{(1)} + \theta_1 x_1^{(1)}+  ... + \theta_n x_n^{(1)} \\
+\theta_0 x_0^{(2)} + \theta_1 x_1^{(2)}+  ... + \theta_n x_n^{(2)}\\
+\vdots \\
+\theta_0 x_0^{(m)} + \theta_1 x_1^{(m)}+ ... + \theta_n x_n^{(m)}
+\end{pmatrix}
+- \begin{pmatrix} y^{(1)} \\ y^{(2)} \\ \vdots \\ y^{(m)} \end{pmatrix}
+\right)
+\end{align*}
+
+Thus, the final update rule would be:
+
+\begin{equation*}
+\theta = \theta - \alpha \frac{1}{m} X(X\theta - Y)
+\end{equation*}
 
 \pagebreak
 
-\section{Question 2}
-\textit{Consider events with two binary outcomes, X and Y. We encode the two values as 0 and 1. We can represent
-the outcomes of an experiment in a 2 by 2 frequency table:}
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{c|c c}
-~ & X=0 & X=1 \\
-\hline
-Y=0 & a & b \\
-Y=1 & c & d \\
-\end{tabular}
-\end{table}
-
-\textit{Express the following as a function of a/b/c/d:}
-
-\subsection{$P(X=0)$}
-$X=0$ for both the combinations $ X=0, Y=0$, and $X=0, Y=1$. Thus, we are looking at $a$ and $c$. Then, according to the standard formula:
-
-\begin{equation*}
-P(X=0) = \frac{a + c}{a+b+c+d}
-\end{equation*}
-
-\subsection{$P(X=1|Y=0)$}
-
+%\section{Question 2}
+%\textit{Consider events with two binary outcomes, X and Y. We encode the two values as 0 and 1. We can represent
+%the outcomes of an experiment in a frequency table:}
+%
+%\begin{table}[h!]
+%\centering
+%\begin{tabular}{c c c c}
+% x & y & freq & P(X=x, Y=y)\\
+%\hline
+%0&0&a&\\
+%0&1&c&\\
+%1&0&b&\\
+%1&1&d&
+%\end{tabular}
+%\end{table}
+% 
+%\subsection{Complete the table by estimating $P(X=x,Y=y)$ for every combination}
+%
+%
+%\begin{table}[h!]
+%\centering
+%\begin{tabular}{c c c c}
+% x & y & freq & P(X=x, Y=y)\\
+%\hline
+%0&0&a& $\frac{a}{a+b+c+d}$\\
+%0&1&c& $\frac{c}{a+b+c+d}$\\
+%1&0&b& $\frac{b}{a+b+c+d}$\\
+%1&1&d& $\frac{d}{a+b+c+d}$
+%\end{tabular}
+%\end{table}
+%
+%
+%\subsection{Calculate $P(X=0)$}
+%$X=0$ for both the combinations $ X=0, Y=0$, and $X=0, Y=1$. Thus, we are looking at $a$ and $c$. Then, according to the standard formula:
+%
+%\begin{equation*}
+%P(X=0) = \frac{a + c}{a+b+c+d}
+%\end{equation*}
+%
+%\subsection{Calculate $P(X=1|Y=0)$}
+%
+%\begin{equation*}
+%P(X=1|Y=0) = \frac{b}{\frac{a+b}{a+b+c+d}}
+%\end{equation*}
+%
+%\subsection{Calculate $P(X=1 \cup Y=0)$}
 
 
 \end{document}
