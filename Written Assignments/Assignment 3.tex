@@ -4,6 +4,7 @@
 \usepackage[english]{babel}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{wrapfig}
 
 \title {Written Assignment 3}
 \date{6 November 2016}
@@ -16,6 +17,14 @@
 \section{Question 3}
 \textit{We have a Neural Network with 1 hidden layer. Input and hidden layer both have 2 nodes. There is 1 output node. the values of theta for bias nodes are 0.2.
 The vector $\theta^{(1)}$ for layer 1 is: [0.5,0.1,0.5,0.7] and $\theta^{(2)}$ for layer 2 is [1,2].}
+
+This information can be visualized in a directed graph like I did in figure 1.
+
+\begin{figure} [h!]
+	\includegraphics[width=\linewidth]{NeuralNetwork.JPG}
+	\caption{Our Neural Network}
+	\label{fig:network}
+\end{figure}
 
 \subsection{Calculate by hand the activations of all nodes for $x_1 = 0.5$ and $x_2 = 0.9$. }
 
@@ -47,7 +56,9 @@ a^{(2)}_2 &= \frac{1}{1 + e^{-z^{(2)}_2}} \\
 &= 0.7068
 \end{align*}
 
-The second and last layer will then be:
+\pagebreak
+
+The third and last layer will then be:
 
 \begin{align*}
 z^{(3)}_1 &= \theta_{10}^{(2)}x_0^{(2)} +  \theta_{11}^{(2)}x_1^{(2)} +  \theta_{12}^{(2)}x_2^{(2)} \\
@@ -63,19 +74,15 @@ a^{(3)}_1 &= \frac{1}{1 + e^{-z^{(3)}_1}} \\
 Our final activation value is the hypothesis. Thus, in this case  $a^{(3)}_1  = h_\theta(x) = 0.9109$. 
 
 \subsection{Suppose the correct output is 1. Calculate the errors for all nodes and the updates of the
-weights (for 1 iteration). }
-
-
-
-$\delta_j^{(l)}$ is the "error"
-
-Calculation:
+weights (for 1 iteration).}
+We will now execute a back propagation in order to calculate the $\delta$-values and update the weights ($\theta$) of our edges. 
+$\delta_j^{(l)}$ is the "error" for a node $n_j^{(l)}$ in a network. It is calculated with the following equation:
 
 \begin{equation*}
 \delta_j^{(l)}  = \theta^{(l)} \delta^{(l+1)}
 \end{equation*}
 
-Thus,
+For the last node in the network we use a slightly different formula, namely, $\delta_j^{(l)} = y - a_j^{(l)} = h_\theta(x) - a_j^{(l)}$. In this case the last node in the network is $n_1^{(3)}$. After calculating this delta, we move one layer back and calculate the delta values. We don't consider the first layer as these are our input values. 
 
 \begin{align*}
 \delta_1^{(3)} &= y - a_1^{(3)} \\
@@ -92,14 +99,14 @@ Thus,
 &= 0.0369
 \end{align*}
 
-Those are the deltas, now the updates. 
-Choose the learning rate $\alpha = 1$ for convenience.
+Now we have calculated the delta values we can use them to update the weights of the edges, in this case the theta values, using the following formula:
 
 \begin{equation*}
 \theta_{ij}^{(l)} := \theta_{ij}^{(l)} - \alpha a_j^{(l)} \delta_i^{(l+1)}
 \end{equation*}
+ 
+Choose the learning rate $\alpha = 1$ for convenience. We don't update the bias thetas as these are constant. If we would update them the purpose of them would be countered. Again we do this layer by layer. \\
 
-Don't update the bias thetas.
 Layer 1: 
 \begin{align*}
 \theta_{11}^{(2)} &:= \theta_{11}^{(2)} - \alpha a_1^{(2)} \delta_1^{(3)} \\
@@ -112,7 +119,6 @@ Layer 1:
 \end{align*}
 
 Layer 2:
-
 \begin{align*}
 \theta_{11}^{(1)} &:= \theta_{11}^{(1)} - \alpha x_1^{(1)} \delta_1^{(2)} \\
 &= 0.5 - 1 \cdot 0.5 \cdot 0.0183\\
@@ -131,7 +137,41 @@ Layer 2:
 &= 0.6668
 \end{align*}
 
+In linear regression we use a similar process for every training example.
 
+\pagebreak
+
+\section{Question 4}
+\textit{In this exercise you will use a perceptron (instead of sigmoid function), that is explained in the
+slides of Mitchell. }
+ 
+The perceptron is defined as follows:
+
+\begin{figure} [h!]
+	\includegraphics[width=\linewidth]{perceptronDef.png}
+\end{figure}
+
+\subsection{What are the values of weights $w_0$, $w_1$ and $w_2$ for the perceptron whose decision surface is
+illustrated in figure \ref{fig:perc}}
+
+\begin{wrapfigure} []{R}{0.25\textwidth}
+\begin{center}
+	\includegraphics[width=100pt]{perceptron1.png}
+\end{center}
+	\caption{Decision Surface of a Perceptron}
+	\label{fig:perc}
+\end{wrapfigure}
+
+\textit{Assume the surface crosses the $x_1$ axis at -1 and the $x_2$ axis at 2.}
+
+Let's first write down the function of $x_2$ relative to $x_1$. Then we can rewrite it as a sum of x values which is equal to 0.
+
+\begin{align*}
+x_2 &= 2x_1 + 2\\
+0&=2+2x_1-x_2
+\end{align*}
+
+As we can see in figure \ref{fig:perc}, all values under this line should be 0 and everything above it should be 1. Thus, our weigths will be $w_0 = 2$, $w_1 = 2$ and $w_2 = -1$.
 
 
 
