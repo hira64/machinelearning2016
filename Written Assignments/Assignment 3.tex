@@ -171,7 +171,7 @@ x_2 &= 2x_1 + 2\\
 0&=2+2x_1-x_2
 \end{align*}
 
-As we can see in figure \ref{fig:perc}, all values under this surface should be 0 and everything above it should be 1. Thus, our weigths will be $w_0 = 2$, $w_1 = 2$ and $w_2 = -1$.
+As we can see in figure \ref{fig:perc}, all values under this surface should be 0 and everything above it should be 1. Thus, our weights will be $w_0 = 2$, $w_1 = 2$ and $w_2 = -1$.
 
 \subsection{Designing perceptrons}
 \subsubsection{Design a two-input perceptron that implements the Boolean function A AND (NOT B).}
@@ -206,14 +206,68 @@ We have two input values, thus we need three weight values: \textit{Return 1 if 
 
 The outputs in this table is are the same as those in the truth table, thus we have found a perceptron for the boolean function A AND (NOT B). 
 
+\subsubsection{Design a two-layer network of perceptrons that that implements A XOR B.}
+Again, we start with writing out the truth table and a visualization on paper.
 
+\begin{table}[h!]
+\centering
+\begin{tabular}{c c c }
+ A & B & A XOR B\\
+\hline
+1&1&0\\
+1&0&1\\
+0&1&1\\
+0&0&0
+\end{tabular}
+\end{table}
 
+As this is not solvable with one perceptron we need a network. A XOR B is equivalent to $\lnot(A \land B) \land (A \lor B)$. Thus, in the first layer we can have the perceptrons for $ \not(A\land B)$ and $A\lor B$ and then feed the results to a AND perceptron in the second layer.\\
 
+ $ \not(A\land B)$ with weights $w_0 = 1.5$, $w_1 = -1$ and $w_2 = -1$ gives the following outputs:
 
+\begin{table}[h!]
+\centering
+\begin{tabular}{c c c }
+ A & B & $ \not(A\land B)$\\
+\hline
+1&1&0\\
+1&0&1\\
+0&1&1\\
+0&0&1
+\end{tabular}
+\end{table}
 
+A OR B with the weights  $w_0 = -0.5$, $w_1 = 1$ and $w_2 = 1$ gives the following outputs:
 
+\begin{table}[h!]
+\centering
+\begin{tabular}{c c c }
+ A & B & $ A\lor B$\\
+\hline
+1&1&1\\
+1&0&1\\
+0&1&1\\
+0&0&0
+\end{tabular}
+\end{table}
 
+\pagebreak
 
+Finally, feeding these inputs to the AND perceptron with weights $w_0 = 0.5$, $w_1 = -1$ and $w_2 = -1$ gives us the following outputs:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c c c c c}
+ A & B & $ \not(A\land B)$& $ A \lor B$ & A XOR B\\
+\hline
+1&1&0 &1&0\\
+1&0&1&1&1\\
+0&1&1&1&1\\
+0&0&1&0&0
+\end{tabular}
+\end{table}
+
+This shows that our model is correct. 
 
 
 
