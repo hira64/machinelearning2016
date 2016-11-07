@@ -171,9 +171,40 @@ x_2 &= 2x_1 + 2\\
 0&=2+2x_1-x_2
 \end{align*}
 
-As we can see in figure \ref{fig:perc}, all values under this line should be 0 and everything above it should be 1. Thus, our weigths will be $w_0 = 2$, $w_1 = 2$ and $w_2 = -1$.
+As we can see in figure \ref{fig:perc}, all values under this surface should be 0 and everything above it should be 1. Thus, our weigths will be $w_0 = 2$, $w_1 = 2$ and $w_2 = -1$.
 
+\subsection{Designing perceptrons}
+\subsubsection{Design a two-input perceptron that implements the Boolean function A AND (NOT B).}
 
+Let's start with writing out the truth table for A AND (NOT B).
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c c c c}
+ A & B & NOT B & A AND (NOT B)\\
+\hline
+1&1&0&0\\
+1&0&1&1\\
+0&1&0&0\\
+0&0&1&0
+\end{tabular}
+\end{table}
+
+We have two input values, thus we need three weight values: \textit{Return 1 if $w_0 + w_1A + w_2 B > 0$, otherwise return 0}. A quick sketch gives us the possible values $w_0 = -0.5$, $w_1 = 1$ and $w_2 = -1$. Calculating the values for the summation and the corresponding gives us the following table:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c c c c}
+ A & B & Sum & Output\\
+\hline
+1&1&-0.5&0\\
+1&0&0.5&1\\
+0&1&-1.5&0\\
+0&0&-0.5&0
+\end{tabular}
+\end{table}
+
+The outputs in this table is are the same as those in the truth table, thus we have found a perceptron for the boolean function A AND (NOT B). 
 
 
 
